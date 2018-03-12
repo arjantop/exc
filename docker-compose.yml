@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    command: --log-bin --binlog-format=ROW --server-id=1
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=exchange
+  app:
+    build: .
+    image: exchange
+    ports:
+      - "8888:8888"
+    depends_on:
+      - db
